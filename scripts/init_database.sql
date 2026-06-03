@@ -2,39 +2,43 @@
 ===============================================================================
 DataWarehouse Initialization Script
 ===============================================================================
-
 Purpose:
-    Creates the DataWarehouse database and initializes the Medallion
-    architecture schemas used for data ingestion, transformation,
-    and analytics.
+    Creates the DataWarehouse database and establishes the Medallion
+    architecture schemas.
 
 Schemas:
-    bronze - Raw data layer containing source-system data as ingested.
-    silver - Cleansed, validated, and transformed data layer.
-    gold   - Curated, business-ready data layer for reporting and analytics.
+    bronze - Stores raw data ingested from source systems.
+    silver - Stores cleansed, validated, and transformed data.
+    gold   - Stores business-ready data for reporting and analytics.
 
-Version:
-    1.0
-
+Version: 1.0
 ===============================================================================
 */
 
--- Create the DataWarehouse database
+USE master;
+GO
+
+-- Drop and recreate the 'DataWarehouse' database
+IF EXISTS (SELECT 1 FROM sys.databases WHERE name = 'DataWarehouse')
+BEGIN
+    ALTER DATABASE DataWarehouse SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE DataWarehouse;
+END;
+GO
+
+-- Create the 'DataWarehouse' database
 CREATE DATABASE DataWarehouse;
 GO
 
--- Switch context to the DataWarehouse database
 USE DataWarehouse;
 GO
 
--- Create Bronze schema for raw source data
+-- Create Schemas
 CREATE SCHEMA bronze;
 GO
 
--- Create Silver schema for cleansed and transformed data
 CREATE SCHEMA silver;
 GO
 
--- Create Gold schema for business-ready reporting and analytics
 CREATE SCHEMA gold;
 GO
