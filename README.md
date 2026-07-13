@@ -159,15 +159,3 @@ The Gold Layer can be used to analyze:
 - Product Categories
 - Order Analysis
 
-
-
-
-
-
-
-
-
-
----
-
-# ⭐ If you found this project useful, don't forget to Star the repository!
